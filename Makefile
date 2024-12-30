@@ -1,5 +1,5 @@
-pfcalc: pfcalc.hs
-	ghc pfcalc.hs -o pfcalc
+pfcalc: src/Main.hs src/Ops.hs
+	ghc -O -isrc src/Main.hs -o pfcalc
 
 install: pfcalc
 	cp pfcalc /usr/local/bin/pfcalc
