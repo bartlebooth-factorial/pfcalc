@@ -24,6 +24,8 @@ main =
              in case op of
                "+" -> opDo opSum
 
+               "-" -> opDo opSubtract
+
                "x" -> opDo opProduct
 
                "/" -> opDo opDivide

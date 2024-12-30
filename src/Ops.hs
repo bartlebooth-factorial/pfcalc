@@ -1,6 +1,6 @@
 module Ops where
 
-import Data.Foldable (foldr, foldl')
+import Data.Foldable (foldl', foldr')
 import Data.List
 import Data.List.NonEmpty
 
@@ -9,11 +9,20 @@ type Op = NonEmpty Integer -> Integer
 opSum :: Op =
   foldl' (+) 0
 
+opSubtract :: Op =
+  \nums ->
+    case nums of
+      a :| [] -> a
+      a :| b : cs ->
+        opSubtract $! ((a - b) :| cs)
+        -- need strict eval with "$!" so that subtractions don't cancel into
+        -- additions
+
 opProduct :: Op =
   foldl' (*) 1
 
 opDivide :: Op =
-  foldr div 1
+  foldr' div 1
 
 opModulus :: Op =
   \nums ->
@@ -34,6 +43,8 @@ opGCD :: Op =
 opsDescription :: String =
   "Valid operations are:\n\
   \  + (sum)\n\
+
+  \  - (subtraction)\n\
 
   \  x (product)\n\
 
