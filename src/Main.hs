@@ -7,15 +7,12 @@ import Text.Read (readMaybe)
 
 import Ops
 
-opError :: String -> String -> IO () =
-  \opName msg ->
-    putStrLn ("Error: operation \"" ++ opName ++ "\" " ++ msg)
-
 main :: IO ()
 main =
   do args <- getArgs
      case args of
-       [] -> putStrLn "Error: no arguments given"
+       [] -> do putStrLn "Error: no arguments given"
+                putStrLn opsDescription
        op : opArgs ->
          let numericArgs :: [Integer] =
                mapMaybe (readMaybe) (opArgs)
@@ -36,4 +33,5 @@ main =
 
                "gcd" -> opDo opGCD
 
-               _ -> opError op "unknown"
+               _ -> do opError op "unknown"
+                       putStrLn opsDescription

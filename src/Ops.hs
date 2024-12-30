@@ -29,3 +29,21 @@ opGCD :: Op =
  -- euclidean algorithm
       if b == 0 then a
       else euc b (a `mod` b)
+
+
+opsDescription :: String =
+  "Valid operations are:\n\
+  \  + (sum)\n\
+
+  \  x (product)\n\
+
+  \  / (integer division)\n\
+
+  \  % (modulus)\n\
+  \  mod (modulus)\n\
+
+  \  gcd (greatest common divisor)"
+
+opError :: String -> String -> IO () =
+  \opName msg ->
+    putStrLn ("Error: operation \"" ++ opName ++ "\" " ++ msg)
